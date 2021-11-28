@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebSocket test</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<form id="formAdd" action="">
+    <input id="inputAdd" autocomplete="off" /><button>Add</button>
+</form>
+
+<form id="formDelete" action="">
+    <input id="inputDelete" autocomplete="off" /><button>Delete</button>
+</form>
+
+<form id="formUpdate" action="">
+    <input id="inputUpdate" autocomplete="off" />
+    <input id="inputUpdate2" autocomplete="off" />
+    <button>Update</button>
+</form>
+
+<button id="items">Get Items</button>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    let socket = io();
+
+    let formAdd = document.getElementById('formAdd');
+    let formDelete = document.getElementById('formDelete');
+    let formUpdate = document.getElementById('formUpdate');
+    let inputAdd = document.getElementById('inputAdd');
+    let inputDelete = document.getElementById('inputDelete');
+    let inputUpdate = document.getElementById('inputUpdate');
+    let inputUpdate2 = document.getElementById('inputUpdate2');
+    let getItems = document.getElementById('items');
+
+    formAdd.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (inputAdd.value) {
+            socket.emit('input', inputAdd.value);
+            inputAdd.value = '';
+        }
+    });
+
+    formDelete.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (inputDelete.value) {
+            socket.emit('delete', inputDelete.value);
+            inputDelete.value = '';
+        }
+    });
+
+    formUpdate.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (inputUpdate.value && inputUpdate2.value) {
+            socket.emit('update', inputUpdate.value, inputUpdate2.value);
+            inputUpdate.value = '';
+            inputUpdate2.value = '';
+        }
+    });
+
+    getItems.addEventListener('click', function () {
+        socket.emit('read');
+    });
+</script>
+
+</body>
+</html>

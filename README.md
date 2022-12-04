@@ -3,7 +3,7 @@
 <img src="./gitResources/todo.png" align="right"
 alt="TodoList" width="150" height="150">
 
-An API built in Node.js implementing socket.io for websockets.
+A demo API built in Node.js implementing socket.io for websockets.
 
 * **GET** Retrieve information from the database.
 * **POST** Insert data into a database.
